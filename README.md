@@ -1,4 +1,12 @@
 # Fintech360 - Scalable Data & Risk Pipeline
+![](https://github.com/Sarthakkk16/Fintech360/blob/main/fintech360.png)
+
+## 🚨 The Problem: When Fintech Data Goes Out of Control
+In a growing fintech, data volumes explode fast. Millions of daily micro-transactions, loan state changes, and external API calls can quickly create data chaos. If a data engineer doesn't manage this scale properly, the entire system chokes—credit risk models get fed bad data, BI dashboards take minutes to load, and financial reporting becomes untrustworthy.
+
+**Fintech360 was built to demonstrate how to tame this chaos.** 
+
+This project showcases a production-ready blueprint for handling massive data growth. It proves that no matter how huge or unruly the incoming data gets, implementing strict schema validation, quarantine routing, and decoupled distributed compute (PySpark/Databricks) keeps the enterprise data ecosystem fast, accurate, and unbreakable.
 
 ## 📌 Project Overview
 Fintech360 is a production-grade scalable data pipeline designed to process loan lifecycle data[cite: 4]. It captures simulated fintech data generated via Python Faker, stores it in an AWS RDS PostgreSQL database, and processes it through a Medallion architecture in Databricks[cite: 2]. The final outputs are optimized to serve Data Analysts, Machine Learning models (for credit risk and underwriting), and Management dashboards in Power BI[cite: 2].
