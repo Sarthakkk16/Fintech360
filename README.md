@@ -1,12 +1,39 @@
-Fintech360: Scalable Data & Risk Pipeline📌 OverviewFintech360 is an end-to-end, production-grade data engineering pipeline designed to process loan lifecycle data (acquisition, underwriting, repayment, collections). The project leverages a robust Medallion architecture on Databricks to transform raw transactional data into clean, aggregated models optimized for Credit Risk Machine Learning models and Management BI dashboards.   The core focus of this architecture is data reliability, implementing strict Schema Validation and Data Quality gates that actively quarantine bad records before they corrupt downstream analytics.   🏗️ Architecture & Data FlowData Generation & Ingestion: Python's faker library simulates realistic fintech entities (customer profiles, loan applications, KYC status, repayments). This mock data is ingested into an AWS RDS (PostgreSQL) database to simulate a live core banking system.   S3 Landing Zone: Raw data is extracted from RDS via micro-batches/CDC and lands in an AWS S3 bucket.   Bronze Layer (Raw/CDC): Databricks Auto Loader ingests raw data from S3, maintaining an immutable historical log of all transactions and state changes[cite: 1, 2, 3].Schema Validation: Strict checks enforce column structure, data types, nullability, and safe schema evolution[cite: 1, 2, 3].Silver Layer (Clean Data): Data is cleansed, deduplicated, standardized, and PII is masked/tokenized[cite: 1, 2, 3].Data Quality Gate & Quarantine:Validates null checks, duplicate checks, range checks (e.g., positive DPD, valid interest rates), and referential integrity[cite: 1, 2, 3].Pass: Clean data proceeds to business transformation.   Fail: Corrupted records are routed to a Quarantine (Error Monitoring) table to prevent downstream metric corruption[cite: 1, 2, 3].Gold Layer (Business Transformation): Highly aggregated, denormalized tables (portfolio quality, collection efficiency) are created and governed by Databricks Unity Catalog for access control (RLS/CLS)[cite: 1, 2, 3].Serving / Analytics: Power BI connects directly to the Databricks SQL Warehouse, leveraging upstream aggregations (query folding) for sub-second management dashboard rendering[cite: 1, 2, 3].🛠️ Tech StackSource/Database: AWS RDS (PostgreSQL)   Data Lake/Storage: AWS S3   Compute & Processing: Databricks, PySpark, Python (Faker, Pandas)   Data Format: Delta Lake (ACID compliance, schema enforcement)   Governance: Databricks Unity Catalog   BI & Analytics: Power BI, Databricks SQL   🚀 Key FeaturesActive Quarantine Routing: The explicit pass/fail data quality routing acts as a dead-letter queue, ensuring only 100% validated data reaches the ML models and BI dashboards[cite: 1, 2, 3].Query Folding Optimization: Moving heavy aggregations (vintage analysis, roll-rates) upstream to the Databricks Gold layer shifts the compute burden away from the BI client, massively improving dashboard performance.   Enterprise Security: PII tokenization in the Silver layer and Row/Column-Level Security in Unity Catalog ensures sensitive financial data remains isolated.   📂 Repository StructurePlaintextFintech360/
-│
-├── data_generation/          # Python scripts using Faker to simulate loan/customer data
-├── ingestion/                # Extraction scripts (RDS to AWS S3)
-├── databricks_notebooks/     
-│   ├── 01_bronze_ingest.py   # S3 to Bronze Layer
-│   ├── 02_silver_cleanse.py  # Schema validation & transformation to Silver
-│   ├── 03_dq_quarantine.py   # Data Quality rules and Pass/Fail routing
-│   └── 04_gold_aggregate.py  # Business logic and Gold layer materialization
-├── ddl/                      # SQL scripts for table creation and Unity Catalog setup
-├── dashboards/               # Power BI templates (.pbit) and semantic models
-└── README.md                 # Project documentation
+# Fintech360 - Scalable Data & Risk Pipeline
+
+## 📌 Project Overview
+Fintech360 is a production-grade scalable data pipeline designed to process loan lifecycle data[cite: 4]. It captures simulated fintech data generated via Python Faker, stores it in an AWS RDS PostgreSQL database, and processes it through a Medallion architecture in Databricks[cite: 2]. The final outputs are optimized to serve Data Analysts, Machine Learning models (for credit risk and underwriting), and Management dashboards in Power BI[cite: 2].
+
+## 🏗️ Architecture & Data Flow
+The pipeline follows a robust Medallion architecture with strict validation and routing gates[cite: 2, 3]:
+
+*   **Data Generation & Ingestion:** Python `faker` scripts generate realistic loan applications, KYC status, repayments, and DPD (Days Past Due) tracking, which are stored in AWS RDS[cite: 4].
+*   **Data Lake Landing:** Raw data is extracted and lands in an AWS S3 bucket[cite: 2, 3].
+*   **Bronze Layer (Raw/CDC):** Ingests raw data from S3, retaining an immutable historical log of all transactions[cite: 2, 3].
+*   **Schema Validation Gate:** Enforces checks on columns, data types, nullability, and schema evolution before data enters the Silver layer[cite: 2, 3].
+*   **Silver Layer (Clean Data):** Cleanses, deduplicates, and standardizes data while masking Personally Identifiable Information (PII)[cite: 2, 3].
+*   **Data Quality Gate & Quarantine:** 
+    *   Performs strict checks: Null checks, Duplicate checks, Range checks, and Referential integrity[cite: 2, 3].
+    *   **PASS:** Clean data moves to the Business Transformation stage (Gold)[cite: 3].
+    *   **FAIL:** Corrupted data is routed to a Quarantine (Error Monitoring) table to prevent downstream metric corruption[cite: 2, 3].
+*   **Gold Layer (Business Transformation):** Highly aggregated, denormalized tables (e.g., portfolio quality, collection efficiency) secured and governed by Unity Catalog[cite: 2, 3].
+*   **Downstream Serving:** Power BI / Analytics[cite: 3].
+
+## 🛠️ Tech Stack
+*   **Data Generation:** Python (Faker library)[cite: 2]
+*   **Transactional Source:** AWS RDS (PostgreSQL)[cite: 2]
+*   **Data Lake:** AWS S3[cite: 2]
+*   **Compute & Processing:** Databricks, PySpark, Delta Lake[cite: 2, 4]
+*   **Governance:** Databricks Unity Catalog (Row-Level & Column-Level Security)[cite: 2]
+*   **Downstream Consumption:** Power BI, Databricks SQL[cite: 2, 4]
+
+## 🚀 Key Features
+*   **Decoupled Compute & Storage:** Leverages distributed PySpark compute to handle variable data volumes natively without bottlenecking[cite: 2].
+*   **Strict Quality Routing:** The explicit pass/fail data quality routing guarantees data trust for downstream models and dashboards[cite: 2].
+*   **Optimized BI Rendering:** Upstream aggregations allow Power BI to utilize query folding for sub-second dashboard rendering[cite: 2].
+*   **Enterprise Security:** Sensitive financial data is isolated using Row-Level Security (RLS) and Column-Level Security (CLS) via Unity Catalog[cite: 2].
+
+## 📂 Project Documentation
+For a deep dive into the planning and architecture, refer to the project documents:
+*   **Product Requirements Document (PRD)**
+*   **Software Requirements Specification (SRS)**[cite: 2]
+*   **12-Week Project Plan**[cite: 4]
