@@ -14,7 +14,7 @@ This project is a masterclass in building an enterprise data ecosystem that is f
 
 ### **🛠️ What you will learn (and steal) from this repository:**
 
-**Strict Schema Validation:**Stop garbage data at the Bronze layer before it poisons your downstream tables.
+**Strict Schema Validation:** Stop garbage data at the Bronze layer before it poisons your downstream tables.
 
 **Quarantine Routing (The Secret Weapon):** Never drop and lose bad records. We route failed validations into a quarantine zone for root-cause analysis without pausing the main pipeline.
 
