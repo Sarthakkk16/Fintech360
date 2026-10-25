@@ -1,5 +1,0 @@
-aws s3 cp fintech360_bronze/loans.csv s3://fintech360/loans/
-aws s3 cp fintech360_bronze/emi_data.csv s3://fintech360/emi_data/
-aws s3 cp fintech360_bronze/upi_data.csv s3://fintech360/upi_data/
-aws s3 cp fintech360_bronze/bureau_data.csv s3://fintech360/bureau/
-aws s3 cp fintech360_bronze/bank_data.csv s3://fintech360/bank/
