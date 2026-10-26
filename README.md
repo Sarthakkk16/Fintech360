@@ -35,7 +35,7 @@ In my latest project, Fintech360, I open-sourced the exact blueprint for handlin
 ### **The 3 pillars of an unbreakable pipeline:**
 1️⃣**Strict Schema Enforcement:** If it doesn't match the contract, it doesn't get into Silver.
 2️⃣ **Quarantine Routing:** We don't just drop bad data. We isolate it automatically in a quarantine folder for analysis so the main pipeline never stops.
-3️⃣** Decoupled Compute:** Leveraging PySpark and Databricks to scale endlessly.
+3️⃣**Decoupled Compute:** Leveraging PySpark and Databricks to scale endlessly.
 
 **I built this so you can steal it.** Save this architecture blueprint, study the repository, and start building this exact Quarantine routing system in your own Databricks environment today.
 ## 📌 Project Overview
