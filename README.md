@@ -24,7 +24,7 @@ This project is a masterclass in building an enterprise data ecosystem that is f
 
 Clone this repository today. Implement this exact Medallion architecture in your own workspace. Stop writing basic scripts and start building unbreakable systems.
 
-## **📱 Social Caption (For LinkedIn/Twitter)
+## **📱 Social Caption (For LinkedIn/Twitter)**
 
 Use this caption to drive shares, saves, and establish authority when sharing the project.**
 
